@@ -283,11 +283,11 @@ export default function Home() {
 
       <div className="modal-wrap" ref={modal}>
         <div className="modal">
-          The Website you see here is 80% made out of css using no library or such. The sun and the grid below you are entirely made out of Css, you
-          can check it through the source code (of the original file) if you want. I specialize at implementing figma designs into real life website
-          using react and plain css (tailwind is also doable to me). I also have a good sets of skills of analytical geometry to implement any kind of
-          exciting design you have. I'm fully responsible and also able to complete certain task on time. I hope that i'm able to bring fasilkom's
-          website into a new level of creativity. Sincerely, thank you in advance for your attention
+          The Website you see here is 80% made out of css using no library or such (the other 20% is made out of tailwind). The sun and the grid below
+          you are entirely made out of Css, you can check it through the source code (of the original file) if you want. I specialize at implementing
+          figma designs into real life website using react and plain css (tailwind is also doable to me). I also have a good sets of skills of
+          analytical geometry to implement any kind of exciting design you have. I'm fully responsible and also able to complete certain task on time.
+          I hope that i'm able to bring fasilkom's website into a new level of creativity. Sincerely, thank you in advance for your attention
           <div className="button" onClick={() => modal.current.classList.contains('active') && modal.current.classList.remove('active')}>
             X
           </div>
