@@ -332,6 +332,7 @@ video {
   }
   .modal {
     scale: 0.5;
+    margin-top: -2.4rem;
   }
   .psa {
     display: none;
@@ -530,7 +531,7 @@ video {
   background-color: #000000d7;
 }
 .custom .modal {
-  width: 20rem;
+  width: 100vw;
   font-size: 1rem;
   line-height: 1rem;
 }
