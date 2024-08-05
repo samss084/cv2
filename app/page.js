@@ -251,7 +251,7 @@ export default function Home() {
             id="3"
             onClick={() => btn(3)}
             onMouseEnter={() => SetPSA('Warning High GPU usage because of the pure 3D css animation')}
-            onMouseLeave={() => SetPSA('Use Arrows and ESCP to navigate')}
+            onMouseLeave={() => counter !== 3 && SetPSA('Use Arrows and ESCP to navigate')}
           >
             Exit
           </div>
