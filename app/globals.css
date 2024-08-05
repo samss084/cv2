@@ -311,6 +311,9 @@ video {
     scale: 0.65;
     margin-top: -2.5rem;
   }
+  .special{
+    display: none;
+  }
   body {
     background-color: #000;
     overflow: hidden !important;

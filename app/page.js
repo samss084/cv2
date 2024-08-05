@@ -210,7 +210,7 @@ export default function Home() {
               <div className={`title list `} id="2" onClick={() => btn(2)}>
                 Projects
               </div>
-              <div className={`title list `} id="3" onClick={() => btn(3)}>
+              <div className={`title list special `} id="3" onClick={() => btn(3)}>
                 Original
               </div>
             </div>
