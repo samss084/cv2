@@ -11,7 +11,6 @@ export default function Home() {
   const [mode, setMode] = useState('main');
   const [counter, setCounter] = useState(1);
   const [show, setShow] = useState(true);
-  const [isPortrait, SetIsPorrtrait] = useState(false);
   const [psa, SetPSA] = useState('Use Arrows and ESCP to navigate');
   useEffect(() => {
     const elems = document.querySelectorAll('.list');
@@ -21,9 +20,6 @@ export default function Home() {
           <div class="triangles"></div>
           <div>${text}</div>
           `;
-    }
-    if (window.screen.width < window.screen.height) {
-      SetIsPorrtrait(true);
     }
   }, []);
   useEffect(() => {
@@ -145,12 +141,12 @@ export default function Home() {
   };
   return (
     <>
-      <div className={`modal-wrap custom ${!isPortrait && 'd-none'}`}>
+      <div className={`modal-wrap custom`}>
         <div className="modal">This website requires landscape screen orientation please rotate your phone and refresh the website</div>
       </div>
-      <video autoPlay muted loop id="myVideo" ref={myVideo}>
+      {/* <video autoPlay muted loop id="myVideo" ref={myVideo}>
         <source src="/video.mp4" type="video/mp4" id="srca" />
-      </video>
+      </video> */}
       <div className="vignette"></div>
       <svg className={`square ${!show && 'd-none'}`}>
         <polygon points="250,60 100,400 400,400" className="triangle" />
