@@ -301,15 +301,15 @@ video {
 @media only screen and (max-width: 1000px) {
   .square {
     scale: 0.5;
-    margin-top: -1rem;
+    margin-top: -3rem;
   }
   .text {
     scale: 0.51;
-    margin-top: -1rem;
+    margin-top: -2rem;
   }
   .button {
     scale: 0.65;
-    margin-top: -3rem;
+    margin-top: -5rem;
   }
   body {
     background-color: #000;
