@@ -7,7 +7,6 @@ export default function Home() {
   const clickedWrap = useRef();
   const clicked = useRef();
   const myVideo = useRef();
-
   const modal = useRef();
   const [mode, setMode] = useState('main');
   const [counter, setCounter] = useState(1);
