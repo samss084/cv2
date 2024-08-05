@@ -75,7 +75,7 @@ export default function Home() {
         proj();
         break;
       case 3:
-        window.open('https://cv2-amber-two.vercel.app');
+        window.open('https://cv-amber-two.vercel.app');
         break;
       case 4:
         window.open('https://catnip-rapid-warrior.glitch.me/');
