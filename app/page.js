@@ -247,7 +247,7 @@ export default function Home() {
             Projects
           </div>
           <div
-            className={`title list `}
+            className={`title list special `}
             id="3"
             onClick={() => btn(3)}
             onMouseEnter={() => SetPSA('Warning High GPU usage because of the pure 3D css animation')}
