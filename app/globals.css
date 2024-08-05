@@ -31,6 +31,7 @@ body {
   z-index: 2;
   margin-bottom: 2rem;
   animation: reveal3 3s cubic-bezier(0, 0, 0.43, 1.07);
+  will-change: transform;
 }
 .text path:nth-child(1) {
   opacity: 0.2;
@@ -106,6 +107,7 @@ body {
   transform: rotate(85deg) scale(1.5) translateX(10%) translateY(-15%);
   filter: drop-shadow(0 0 2rem #ec0104) drop-shadow(0 0 0.1rem #cb0000);
   animation: reveal2 3s cubic-bezier(0, 0, 0.43, 1.07);
+  will-change: transform;
 }
 @keyframes reveal2 {
   from {
@@ -133,6 +135,7 @@ html {
   width: 100vw;
   clip-path: circle(0% at 50% 56%);
   transition: clip-path 1s cubic-bezier(0.74, 0.12, 0, 0.99);
+  will-change: clip-path;
 }
 .bg {
   position: fixed;
@@ -298,6 +301,7 @@ video {
   filter: drop-shadow(0 0 2rem #ec0104) drop-shadow(0 0 0.1rem #cb0000);
   opacity: 1 !important;
 }
+
 @media only screen and (max-width: 1000px) {
   .square {
     scale: 0.5;
@@ -521,14 +525,20 @@ video {
   background-color: #00000079;
 }
 .custom {
-  visibility: visible;
-  z-index: 15;
+  display: none !important;
+  z-index: 20;
   background-color: #000000d7;
 }
 .custom .modal {
   width: 20rem;
   font-size: 1rem;
   line-height: 1rem;
+}
+@media screen and (orientation:portrait) and (max-width: 1000px) { 
+.custom {
+  display: block !important;
+  visibility: visible !important;
+}
 }
 .modal-wrap.active {
   visibility: visible;

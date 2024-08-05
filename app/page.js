@@ -144,9 +144,9 @@ export default function Home() {
       <div className={`modal-wrap custom`}>
         <div className="modal">This website requires landscape screen orientation please rotate your phone and refresh the website</div>
       </div>
-      {/* <video autoPlay muted loop id="myVideo" ref={myVideo}>
+      <video autoPlay muted loop id="myVideo" ref={myVideo}>
         <source src="/video.mp4" type="video/mp4" id="srca" />
-      </video> */}
+      </video>
       <div className="vignette"></div>
       <svg className={`square ${!show && 'd-none'}`}>
         <polygon points="250,60 100,400 400,400" className="triangle" />
