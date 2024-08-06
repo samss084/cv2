@@ -1,99 +1,152 @@
 'use client';
 
-import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 
 export default function Home() {
+  const [active, isActive] = useState(false);
+  const DEFAULTTAB = 'main';
+  const tab = [
+    {
+      id: 'main',
+      title: 'Main Menu',
+    },
+    {
+      id: 'projects',
+      title: 'Projects',
+    },
+  ];
+  const navigate = [
+    {
+      id: 1,
+      label: 'Info',
+      onClick: () => isActive(true),
+      onMouseEnter: null,
+      onMouseLeave: null,
+      hideOnSmall: false,
+      tab: 'main',
+    },
+    {
+      id: 2,
+      label: 'Projects',
+      onClick: () => proj(),
+      onMouseEnter: null,
+      onMouseLeave: null,
+      hideOnSmall: false,
+      tab: 'main',
+    },
+    {
+      id: 3,
+      label: 'Original',
+      onClick: () => window.open('https://cv-amber-two.vercel.app'),
+      onMouseEnter: () => SetPSA('Warning High GPU usage because of the pure 3D css animation'),
+      onMouseLeave: () => counter !== 3 && SetPSA('Use Arrows and ESCP to navigate'),
+      hideOnSmall: true,
+      tab: 'main',
+    },
+    {
+      id: 4,
+      label: 'Kitchen',
+      onClick: () => window.open('https://catnip-rapid-warrior.glitch.me/'),
+      onMouseEnter: null,
+      onMouseLeave: null,
+      hideOnSmall: false,
+      tab: 'projects',
+    },
+    {
+      id: 5,
+      label: 'Songz',
+      onClick: () => window.open('https://songs-psi-pied.vercel.app/'),
+      onMouseEnter: null,
+      onMouseLeave: null,
+      hideOnSmall: false,
+      tab: 'projects',
+    },
+    {
+      id: 6,
+      label: 'Los Angeles',
+      onClick: () => window.open('https://alert-adventurous-humor.glitch.me/'),
+      onMouseEnter: null,
+      onMouseLeave: null,
+      hideOnSmall: false,
+      tab: 'projects',
+    },
+    {
+      id: 7,
+      label: 'Slippy Drippy',
+      onClick: () => window.open('https://parallel-proud-scorpio.glitch.me/'),
+      onMouseEnter: null,
+      onMouseLeave: null,
+      hideOnSmall: false,
+      tab: 'projects',
+    },
+    {
+      id: 8,
+      label: 'Harmonia',
+      onClick: () => window.open('https://github.com/dinovaslate/harmonia69'),
+      onMouseEnter: null,
+      onMouseLeave: null,
+      hideOnSmall: false,
+      tab: 'projects',
+    },
+    {
+      id: 9,
+      label: 'Exit',
+      onClick: () => back(),
+      onMouseEnter: null,
+      onMouseLeave: null,
+      hideOnSmall: false,
+      tab: 'projects',
+    },
+  ];
+  const DEFAULTLINK = navigate.find((link) => link.tab === DEFAULTTAB);
   const clickedWrap = useRef();
   const clicked = useRef();
   const myVideo = useRef();
   const modal = useRef();
-  const [mode, setMode] = useState('main');
-  const [counter, setCounter] = useState(1);
+  const [mode, setMode] = useState(DEFAULTTAB);
+  const [counter, setCounter] = useState(DEFAULTLINK.id);
   const [show, setShow] = useState(true);
   const [psa, SetPSA] = useState('Use Arrows and ESCP to navigate');
-  useEffect(() => {
-    const elems = document.querySelectorAll('.list');
-    for (const elem of elems) {
-      const text = elem.innerText;
-      elem.innerHTML = `
-          <div class="triangles"></div>
-          <div>${text}</div>
-          `;
-    }
-  }, []);
+
   useEffect(() => {
     const handler = (e) => {
       if (e.keyCode !== 40) return;
-      if (modal.current.classList.contains('active')) return;
+      if (active) return;
       if (counter >= 9) return;
       if (mode === 'main' && counter >= 3) return;
-      document.getElementById(`${counter}`).classList.remove('active');
       setCounter((c) => c + 1);
     };
     document.body.addEventListener('keydown', handler);
     return () => document.body.removeEventListener('keydown', handler);
   }, [counter]);
-  useEffect(() => {
-    console.log(counter);
-    document.getElementById(`${counter}`)?.classList.add('active');
-  }, [counter]);
+
   useEffect(() => {
     const handler = (e) => {
       if (e.keyCode !== 38) return;
-      if (modal.current.classList.contains('active')) return;
+      if (active) return;
       if (counter === 1) return;
       if (mode === 'projects' && counter <= 4) return;
-      document.getElementById(`${counter}`).classList.remove('active');
       setCounter((c) => c - 1);
     };
     document.body.addEventListener('keydown', handler);
     return () => document.body.removeEventListener('keydown', handler);
   }, [counter]);
+
   useEffect(() => {
     const handler = (e) => {
-      console.log(counter);
       if (e.keyCode !== 13) return;
       click(counter);
     };
     document.body.addEventListener('keydown', handler);
     return () => document.body.removeEventListener('keydown', handler);
   }, [counter]);
+
   useEffect(() => {
     counter !== 3 ? SetPSA('Use Arrows and ESCP to navigate') : SetPSA('Warning High GPU usage because of the pure 3D css animation');
   }, [counter]);
+
   const click = (count) => {
-    switch (count) {
-      case 1:
-        info();
-        break;
-      case 2:
-        proj();
-        break;
-      case 3:
-        window.open('https://cv-amber-two.vercel.app');
-        break;
-      case 4:
-        window.open('https://catnip-rapid-warrior.glitch.me/');
-        break;
-      case 5:
-        window.open('https://songs-psi-pied.vercel.app/');
-        break;
-      case 6:
-        window.open('https://alert-adventurous-humor.glitch.me/');
-        break;
-      case 7:
-        window.open('https://parallel-proud-scorpio.glitch.me/');
-        break;
-      case 8:
-        window.open('https://github.com/dinovaslate/harmonia69');
-        break;
-      case 9:
-        back();
-        break;
-      default:
-        break;
-    }
+    navigate.find((link) => link.id === count).onClick();
   };
   const clickedevent = () => {
     myVideo.current && (myVideo.current.playbackRate = 3);
@@ -108,46 +161,38 @@ export default function Home() {
 
   const proj = () => {
     setMode('projects');
-    document.getElementById(`${counter}`).classList.remove('active');
     setCounter(4);
-  };
-  const info = () => {
-    modal.current.classList.add('active');
   };
 
   useEffect(() => {
     const handler = (e) => {
-      if (e.keyCode === 27) {
-        if (modal.current.classList.contains('active')) {
-          modal.current.classList.remove('active');
-        }
-        back();
-      }
+      if (e.keyCode !== 27) return;
+      isActive(false);
+      back();
     };
     document.body.addEventListener('keydown', handler);
     return () => document.body.removeEventListener('keydown', handler);
   }, [mode, counter]);
+
   const back = () => {
     if (mode === 'projects') {
       setMode('main');
-      document.getElementById(`${counter}`).classList.remove('active');
       setCounter(1);
     }
   };
   const btn = (id) => {
-    id !== counter && document.getElementById(`${counter}`).classList.remove('active');
     setCounter(id);
     click(id);
   };
   return (
     <>
-      <div className={`modal-wrap custom`}>
-        <div className="modal">This website requires landscape screen orientation please rotate your phone and refresh the website</div>
+      <div className={`modal-wrap custom invisible`}>
+        <div className="modal text-justify">This website requires landscape screen orientation please rotate your phone and refresh the website</div>
       </div>
       <video autoPlay muted loop id="myVideo" ref={myVideo}>
         <source src="/video.mp4" type="video/mp4" id="srca" />
       </video>
-      <div className="vignette"></div>
+      <div className="vignette absolute w-screen h-screen"></div>
       <svg className={`square ${!show && 'd-none'}`}>
         <polygon points="250,60 100,400 400,400" className="triangle" />
         Sorry, your browser does not support inline SVG.
@@ -193,102 +238,63 @@ export default function Home() {
       <a className={`button ${!show && 'd-none'}`} onClick={clickedevent}>
         Jump in
       </a>
-      <div className="clicked-wrap" ref={clickedWrap}>
-        <div className="clicked" ref={clicked}>
-          <div className="vignette"></div>
-          <div className="bg"></div>
-          <div className={`content ${mode === 'main' && 'active'}`} id="main">
-            <div className="title">Main Menu</div>
-            <div className="list-wrap">
-              <div className={`title list active `} id="1" onClick={() => btn(1)}>
-                Info
-              </div>
-              <div className={`title list `} id="2" onClick={() => btn(2)}>
-                Projects
-              </div>
-              <div className={`title list special `} id="3" onClick={() => btn(3)}>
-                Original
-              </div>
-            </div>
-          </div>
-          <div className={`content ${mode === 'projects' && 'active'}`} id="projects">
-            <div className="title">Projects</div>
-            <div className="list-wrap">
-              <div className={`title list `} id="4" onClick={() => btn(4)}>
-                Kitchen
-              </div>
-              <div className={`title list `} id="5" onClick={() => btn(5)}>
-                Songz
-              </div>
-              <div className={`title list `} id="6" onClick={() => btn(6)}>
-                Los Angeles
-              </div>
-              <div className={`title list `} id="7" onClick={() => btn(7)}>
-                Slippy Drippy
-              </div>
-              <div className={`title list `} id="8" onClick={() => btn(8)}>
-                Harmonia
-              </div>
-              <div className={`title list `} id="9" onClick={() => btn(9)}>
-                Exit
+      <div className="clicked-wrap absolute w-screen h-screen" ref={clickedWrap}>
+        <div className="clicked absolute w-screen" ref={clicked}>
+          <div className="vignette absolute w-screen h-screen"></div>
+          <div className="bg fixed"></div>
+          {tab.map(({ id, title }, index) => (
+            <div className={`content absolute w-fit ${mode === id && 'active'}`} id={id} key={index}>
+              <div className="title py-3 px-4">{title}</div>
+              <div className="list-wrap grid-auto-flow">
+                {navigate
+                  .filter((links) => links.tab == id)
+                  .map((link, index) => (
+                    <div
+                      className={`title cursor-pointer py-2 items-center list ${counter === link.id ? 'active' : ''} ${
+                        link.hideOnSmall ? 'special' : ''
+                      } `}
+                      id={link.id}
+                      key={index}
+                    >
+                      <div className="triangles"></div>
+                      <div>{link.label}</div>
+                    </div>
+                  ))}
               </div>
             </div>
-          </div>
-          <div className="psa">{psa}</div>
+          ))}
+          <div className="psa text-white absolute">{psa}</div>
         </div>
       </div>
-      <div className={`content hidden ${mode === 'main' && 'active'} ${show && 'd-none'}`} id="main">
-        <div className="title">Main Menu</div>
-        <div className="list-wrap">
-          <div className={`title list active `} id="1" onClick={() => btn(1)}>
-            Info
-          </div>
-          <div className={`title list `} id="2" onClick={() => btn(2)}>
-            Projects
-          </div>
-          <div
-            className={`title list special `}
-            id="3"
-            onClick={() => btn(3)}
-            onMouseEnter={() => SetPSA('Warning High GPU usage because of the pure 3D css animation')}
-            onMouseLeave={() => counter !== 3 && SetPSA('Use Arrows and ESCP to navigate')}
-          >
-            Exit
-          </div>
-        </div>
-      </div>
-      <div className={`content hidden ${mode === 'projects' && 'active'}`} id="projects">
-        <div className="title">Projects</div>
-        <div className="list-wrap">
-          <div className={`title list `} id="4" onClick={() => btn(4)}>
-            Kitchen
-          </div>
-          <div className={`title list `} id="5" onClick={() => btn(5)}>
-            Songz
-          </div>
-          <div className={`title list `} id="6" onClick={() => btn(6)}>
-            Los Angeles
-          </div>
-          <div className={`title list `} id="7" onClick={() => btn(7)}>
-            Slippy Drippy
-          </div>
-          <div className={`title list `} id="8" onClick={() => btn(8)}>
-            Harmonia
-          </div>
-          <div className={`title list `} id="9" onClick={() => btn(9)}>
-            Exit
+      {tab.map(({ id, title }, index) => (
+        <div className={`content absolute w-fit hidden ${mode === id && 'active'}`} key={index} id={id}>
+          <div className="title py-3 px-4">{title}</div>
+          <div className="list-wrap grid-auto-flow">
+            {navigate
+              .filter((links) => links.tab == id)
+              .map((link, index) => (
+                <div
+                  className={`title cursor-pointer py-2 items-center list  ${link.hideOnSmall ? 'special' : ''} `}
+                  key={index}
+                  id={link.id}
+                  onClick={() => btn(link.id)}
+                >
+                  <div className="triangles"></div>
+                  <div>{link.label}</div>
+                </div>
+              ))}
           </div>
         </div>
-      </div>
+      ))}
 
-      <div className="modal-wrap" ref={modal}>
-        <div className="modal">
+      <div className={`modal-wrap invisible place-content-center ${active ? 'active' : ''}`} ref={modal}>
+        <div className="modal text-white text-justify">
           The Website you see here is 80% made out of css using no library or such (the other 20% is made out of tailwind). The sun and the grid below
           you are entirely made out of Css, you can check it through the source code (of the original file) if you want. I specialize at implementing
           figma designs into real life website using react and plain css (tailwind is also doable to me). I also have a good sets of skills of
           analytical geometry to implement any kind of exciting design you have. I'm fully responsible and also able to complete certain task on time.
           I hope that i'm able to bring fasilkom's website into a new level of creativity. Sincerely, thank you in advance for your attention
-          <div className="button" onClick={() => modal.current.classList.contains('active') && modal.current.classList.remove('active')}>
+          <div className="button" onClick={() => isActive(false)}>
             X
           </div>
         </div>
