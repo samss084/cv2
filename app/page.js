@@ -431,7 +431,7 @@ export default function Home() {
 
       <div className={`modal-wrap invisible place-content-center ${active ? 'active' : ''}`} ref={modal}>
         <div className="modal text-white text-justify">
-          <div dangerouslySetInnerHTML={{ __html: modalMesage }}></div>
+          <div className="cntn" dangerouslySetInnerHTML={{ __html: modalMesage }}></div>
           <div className="button" onClick={() => isActive(false)}>
             X
           </div>
