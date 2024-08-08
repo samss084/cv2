@@ -6,7 +6,9 @@ import { useEffect, useRef, useState } from 'react';
 
 export default function Home() {
   const [active, isActive] = useState(false);
+  const [modalMesage, setmodalMessage] = useState(``);
   const DEFAULTTAB = 'main';
+  const [mode, setMode] = useState(DEFAULTTAB);
   const tab = [
     {
       id: 'main',
@@ -16,24 +18,29 @@ export default function Home() {
       id: 'projects',
       title: 'Projects',
     },
+    {
+      id: 'FAQ',
+      title: 'Frequently Asked',
+    },
   ];
   const navigate = [
     {
       id: 1,
       label: 'Info',
-      onClick: () => isActive(true),
-      onMouseEnter: null,
-      onMouseLeave: null,
-      hideOnSmall: false,
+      onClick: () => {
+        isActive(true);
+        setmodalMessage(`The Website you see here is 80% made out of css using no library other than tailwind css. The sun and the grid below you are entirely made
+          out of Css, you can check it through the source code (of the original file) if you want. I specialize at implementing figma designs into
+          real life website using react and plain css (tailwind is also doable to me). I also have a good sets of skills of analytical geometry to
+          implement any kind of exciting design you have. I'm fully responsible and also able to complete certain task on time. I hope that i'm able
+          to bring fasilkom's website into a new level of creativity. Sincerely, thank you in advance for your attention`);
+      },
       tab: 'main',
     },
     {
       id: 2,
       label: 'Projects',
       onClick: () => proj(),
-      onMouseEnter: null,
-      onMouseLeave: null,
-      hideOnSmall: false,
       tab: 'main',
     },
     {
@@ -49,55 +56,97 @@ export default function Home() {
       id: 4,
       label: 'Kitchen',
       onClick: () => window.open('https://catnip-rapid-warrior.glitch.me/'),
-      onMouseEnter: null,
-      onMouseLeave: null,
-      hideOnSmall: false,
       tab: 'projects',
     },
     {
       id: 5,
       label: 'Songz',
       onClick: () => window.open('https://songs-psi-pied.vercel.app/'),
-      onMouseEnter: null,
-      onMouseLeave: null,
-      hideOnSmall: false,
       tab: 'projects',
     },
     {
       id: 6,
       label: 'Los Angeles',
       onClick: () => window.open('https://alert-adventurous-humor.glitch.me/'),
-      onMouseEnter: null,
-      onMouseLeave: null,
-      hideOnSmall: false,
       tab: 'projects',
     },
     {
       id: 7,
       label: 'Slippy Drippy',
       onClick: () => window.open('https://parallel-proud-scorpio.glitch.me/'),
-      onMouseEnter: null,
-      onMouseLeave: null,
-      hideOnSmall: false,
       tab: 'projects',
     },
     {
       id: 8,
       label: 'Harmonia',
       onClick: () => window.open('https://github.com/dinovaslate/harmonia69'),
-      onMouseEnter: null,
-      onMouseLeave: null,
-      hideOnSmall: false,
       tab: 'projects',
     },
     {
       id: 9,
       label: 'Exit',
       onClick: () => back(),
-      onMouseEnter: null,
-      onMouseLeave: null,
-      hideOnSmall: false,
       tab: 'projects',
+    },
+    {
+      id: 10,
+      label: 'Questions',
+      onClick: () => {
+        setMode('FAQ');
+        setCounter(11);
+      },
+      tab: 'main',
+    },
+    {
+      id: 11,
+      label: 'Organisasi',
+      onClick: () => console.log('hello'),
+      tab: 'FAQ',
+    },
+    {
+      id: 12,
+      label: 'SWOT',
+      onClick: () => {},
+      tab: 'FAQ',
+    },
+    {
+      id: 13,
+      label: 'Alur Design',
+      onClick: () => console.log('hello'),
+      tab: 'FAQ',
+    },
+    {
+      id: 14,
+      label: 'Problem handling',
+      onClick: () => console.log('hello'),
+      style: {
+        fontSize: '2.1rem',
+      },
+      tab: 'FAQ',
+    },
+    {
+      id: 15,
+      label: 'Spec PC',
+      onClick: () => console.log('hello'),
+      tab: 'FAQ',
+    },
+    {
+      id: 16,
+      label: 'Harapan',
+      onClick: () => console.log('hello'),
+      tab: 'FAQ',
+    },
+    {
+      id: 17,
+      label: 'Exit',
+      onClick: () => back(),
+      tab: 'FAQ',
+    },
+    {
+      id: 17,
+      label: 'Exit',
+      onClick: () => back(),
+      tab: 'main',
     },
   ];
   const DEFAULTLINK = navigate.find((link) => link.tab === DEFAULTTAB);
@@ -105,18 +154,18 @@ export default function Home() {
   const clicked = useRef();
   const myVideo = useRef();
   const modal = useRef();
-  const [mode, setMode] = useState(DEFAULTTAB);
+
   const [counter, setCounter] = useState(DEFAULTLINK.id);
   const [show, setShow] = useState(true);
   const [psa, SetPSA] = useState('Use Arrows and ESCP to navigate');
-
   useEffect(() => {
     const handler = (e) => {
       if (e.keyCode !== 40) return;
       if (active) return;
-      if (counter >= 9) return;
-      if (mode === 'main' && counter >= 3) return;
-      setCounter((c) => c + 1);
+      const nextID = navigate.find((val, idx) => {
+        return val.tab === mode && idx > counter - 1;
+      })?.id;
+      nextID && setCounter(nextID);
     };
     document.body.addEventListener('keydown', handler);
     return () => document.body.removeEventListener('keydown', handler);
@@ -126,9 +175,11 @@ export default function Home() {
     const handler = (e) => {
       if (e.keyCode !== 38) return;
       if (active) return;
-      if (counter === 1) return;
-      if (mode === 'projects' && counter <= 4) return;
-      setCounter((c) => c - 1);
+      const prevID = navigate.findLast((val, idx) => {
+        return val.tab === mode && idx < counter - 1;
+      })?.id;
+
+      prevID && setCounter(prevID);
     };
     document.body.addEventListener('keydown', handler);
     return () => document.body.removeEventListener('keydown', handler);
@@ -137,18 +188,23 @@ export default function Home() {
   useEffect(() => {
     const handler = (e) => {
       if (e.keyCode !== 13) return;
+      if (show) {
+        clickedevent();
+        return;
+      }
       click(counter);
     };
     document.body.addEventListener('keydown', handler);
     return () => document.body.removeEventListener('keydown', handler);
-  }, [counter]);
+  }, [counter, show]);
 
   useEffect(() => {
     counter !== 3 ? SetPSA('Use Arrows and ESCP to navigate') : SetPSA('Warning High GPU usage because of the pure 3D css animation');
   }, [counter]);
 
   const click = (count) => {
-    navigate.find((link) => link.id === count).onClick();
+    const get = navigate.find((link) => link.id === count);
+    get.onClick();
   };
   const clickedevent = () => {
     myVideo.current && (myVideo.current.playbackRate = 3);
@@ -158,7 +214,7 @@ export default function Home() {
     clicked.current?.classList.add('reduce');
     setTimeout(() => {
       setShow(false);
-    }, 1500);
+    }, 500);
   };
 
   const proj = () => {
@@ -169,18 +225,28 @@ export default function Home() {
   useEffect(() => {
     const handler = (e) => {
       if (e.keyCode !== 27) return;
-      isActive(false);
+      if (active) {
+        isActive(false);
+        return;
+      }
       back();
     };
     document.body.addEventListener('keydown', handler);
     return () => document.body.removeEventListener('keydown', handler);
-  }, [mode, counter]);
+  }, [mode, counter, active]);
 
   const back = () => {
-    if (mode === 'projects') {
-      setMode('main');
-      setCounter(1);
+    if (mode === 'main') {
+      setShow(true);
+      clicked.current?.classList.remove('reduce');
+      setTimeout(() => {
+        myVideo.current?.classList.remove('upped-video');
+        clickedWrap.current?.classList.remove('upped');
+      }, 900);
+      return;
     }
+    setMode('main');
+    setCounter(1);
   };
   const btn = (id) => {
     setCounter(id);
@@ -253,9 +319,10 @@ export default function Home() {
                   .map((link, index) => (
                     <div
                       className={`title cursor-pointer py-2 items-center list ${counter === link.id ? 'active' : ''} ${
-                        link.hideOnSmall ? 'special' : ''
+                        link?.hideOnSmall ? 'special' : ''
                       } `}
                       id={link.id}
+                      style={link.style}
                       key={index}
                     >
                       <div className="triangles"></div>
@@ -280,6 +347,8 @@ export default function Home() {
                   key={index}
                   id={link.id}
                   onClick={() => btn(link.id)}
+                  onMouseEnter={() => link?.onMouseEnter?.()}
+                  onMouseLeave={() => link?.onMouseLeave?.()}
                 >
                   <div className="triangles"></div>
                   <div>{link.label}</div>
@@ -291,11 +360,7 @@ export default function Home() {
 
       <div className={`modal-wrap invisible place-content-center ${active ? 'active' : ''}`} ref={modal}>
         <div className="modal text-white text-justify">
-          The Website you see here is 80% made out of css using no library other than tailwind css. The sun and the grid below you are entirely made
-          out of Css, you can check it through the source code (of the original file) if you want. I specialize at implementing figma designs into
-          real life website using react and plain css (tailwind is also doable to me). I also have a good sets of skills of analytical geometry to
-          implement any kind of exciting design you have. I'm fully responsible and also able to complete certain task on time. I hope that i'm able
-          to bring fasilkom's website into a new level of creativity. Sincerely, thank you in advance for your attention
+          {modalMesage}
           <div className="button" onClick={() => isActive(false)}>
             X
           </div>
