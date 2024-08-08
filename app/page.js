@@ -106,7 +106,47 @@ export default function Home() {
     {
       id: 12,
       label: 'SWOT',
-      onClick: () => {},
+      onClick: () => {
+        setmodalMessage(`
+          <ul>
+          <li>
+            Strength:
+            <ul>
+              <li>I can implement 3D designs by using Css and Three.js (still learning)</li>
+              <li>I'm able to code complex mechanism through skills that i've built from leetcode and codeforce (user:barco23)</li>
+              <li>I'm persistent and will complete any mission that is tasked to me</li>
+              <li>I'm good at geometry: https://www.desmos.com/calculator/kgehfhobna?lang=id</li>
+            </ul>
+          </li>
+          <br>
+          <li>
+            Weakness:
+            <ul>
+              <li>I'm unable to create designs, i can only implement the design that has been made</li>
+              <li>Sometimes, i'll prioritize academics, but i'll try to equate the tasks that are given by OH fasilkom and academics</li>
+            </ul>
+          </li>
+          <br>
+          <li>
+            Opportunity:
+            <ul>
+              <li>I have enough money to buy courses to boost necessery skills </li>
+              <li>I have a good enough setup </li>
+              <li>I have flexible time at least by now</li>
+            </ul>
+          </li>
+          <br>
+          <li>
+            Threats:
+            <ul>
+              <li>Sometimes complex designs can require more time </li>
+              <li>Academics deadlines (I'll try to keep it balanced)</li>
+            </ul>
+          </li>
+          </ul>
+        `);
+        isActive(true);
+      },
       tab: 'FAQ',
     },
     {
@@ -127,13 +167,44 @@ export default function Home() {
     {
       id: 15,
       label: 'Spec PC',
-      onClick: () => console.log('hello'),
+      onClick: () => {
+        setmodalMessage(`
+        For those that considers this as a flex or an attempt to flex, i can clarify that this section right over here is not for flexing, yet its's here because i was asked this question when doing the interview
+        <br/>
+        <br/>
+        Specification for Laptop:<br/>
+        <ul>
+          <li>CPU: Ryzen 7 5800H</li>
+          <li>GPU: RTX 3070 140 Watt</li>
+          <li>SSD: 1TB Gen 4</li>
+          <li>RAM: 32GB DDR4</li>
+          <li>Resolution: 2560x1600</li>
+        </ul>
+        <br/>
+        Specification for PC:<br/>
+        <ul>
+          <li>CPU: Ryzen 9 3950x</li>
+          <li>GPU: RTX 2070 Super</li>
+          <li>SSD: 1TB Gen 4</li>
+          <li>SSHD: 4TB 7200 RPM (10GB cache) </li>
+          <li>Resolution: 3440x1440</li>
+          <li>RAM: 16GB 3600Mhz</li>
+          <li>Sound System: Sammsung b650 Soundbar</li>
+        </ul>
+        `);
+        isActive(true);
+      },
       tab: 'FAQ',
     },
     {
       id: 16,
       label: 'Harapan',
-      onClick: () => console.log('hello'),
+      onClick: () => {
+        setmodalMessage(`
+        My hope after i've got in is that i could build the website even further destroying any limit that the website has in order for it to launch. I hope that afterwards many students across Indonesia will look up to us even more because of how advance the skills are shown in the website. I hope that our website will rise into popularity at least in google search.
+        `);
+        isActive(true);
+      },
       tab: 'FAQ',
     },
     {
@@ -360,7 +431,7 @@ export default function Home() {
 
       <div className={`modal-wrap invisible place-content-center ${active ? 'active' : ''}`} ref={modal}>
         <div className="modal text-white text-justify">
-          {modalMesage}
+          <div dangerouslySetInnerHTML={{ __html: modalMesage }}></div>
           <div className="button" onClick={() => isActive(false)}>
             X
           </div>

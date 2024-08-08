@@ -513,7 +513,15 @@ video {
   right: -4%;
   top: -5%;
 }
+ul li ul{
+  list-style-type: disc;
+  margin-inline-start: 1.5rem;
+}
+ul li ul li{
+  padding-block: 0.1rem;
+}
 .modal {
+  box-sizing: content-box;
   width: 35rem;
   padding: 2rem 2.5rem;
   background-color: #141e289e;
