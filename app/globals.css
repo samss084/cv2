@@ -360,6 +360,9 @@ video {
     padding-inline: 1rem;
 }
 }
+.custom .modal{
+  box-sizing: border-box;
+}
 .sun {
   position: absolute;
   aspect-ratio: 1 / 1;

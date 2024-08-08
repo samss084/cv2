@@ -8,7 +8,7 @@ export default function Home() {
   const [active, isActive] = useState(false);
   const [modalMesage, setmodalMessage] = useState(``);
   const DEFAULTTAB = 'main';
-  const [mode, setMode] = useState(DEFAULTTAB);
+  const [mode, setMode] = useState('');
   const tab = [
     {
       id: 'main',
@@ -278,6 +278,7 @@ export default function Home() {
     get.onClick();
   };
   const clickedevent = () => {
+    setMode('main');
     myVideo.current && (myVideo.current.playbackRate = 3);
     clickedWrap.current?.classList.add('upped');
     myVideo.current?.setAttribute('style', 'filter:brightness(1.3)');
@@ -313,6 +314,8 @@ export default function Home() {
       setTimeout(() => {
         myVideo.current?.classList.remove('upped-video');
         clickedWrap.current?.classList.remove('upped');
+        setMode('');
+        setCounter(1);
       }, 900);
       return;
     }
