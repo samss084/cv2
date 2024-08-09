@@ -1,10 +1,12 @@
 'use client';
 
+
+import { useSearchParams } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
-
-
 export default function Home() {
+  const search = useSearchParams();
+  const animation = search.has('animation');
   const [active, isActive] = useState(false);
   const [modalMesage, setmodalMessage] = useState(``);
   const DEFAULTTAB = 'main';
@@ -84,8 +86,8 @@ export default function Home() {
     },
     {
       id: 9,
-      label: 'Exit',
-      onClick: () => back(),
+      label: 'Timepicker',
+      onClick: () => window.open('https://timepicker-6c3z.vercel.app/'),
       tab: 'projects',
     },
     {
@@ -99,8 +101,16 @@ export default function Home() {
     },
     {
       id: 11,
-      label: 'Organisasi',
-      onClick: () => console.log('hello'),
+      label: 'Pemilihan desain',
+      onClick: () => {
+        setmodalMessage(`
+          Alasan saya memilih desain ini adalah agar website saya berbeda dengan yang lain, menurut saya  menggunakan template yang disediakan framework akan membuat website anda tidak bisa dibedakan dengan website yang lain. Untuk sebuah website memiliki search yang bagus websitenya harus memiliki sesuatu yang unik didalamnya, dan desain merupakan kunci untama yang juga penting.  
+        `);
+        isActive(true);
+      },
+      style: {
+        fontSize: '2.1rem',
+      },
       tab: 'FAQ',
     },
     {
@@ -152,13 +162,27 @@ export default function Home() {
     {
       id: 13,
       label: 'Alur Design',
-      onClick: () => console.log('hello'),
+      onClick: () => {
+        setmodalMessage(`
+        Jika design tidak terlalu susah, biasanya saya langsung mengimplementasikannya ke web (coding di VS lalu debug di inspect element). Tetapi jika desain susah, saya akan mengsketsa dulu bagaimana cara implementasinya, layout apa yang akan digunakan (flex atau grid), lalu setelah pakem saya akan implementasi
+        `);
+        isActive(true);
+      },
       tab: 'FAQ',
     },
     {
       id: 14,
       label: 'Problem handling',
-      onClick: () => console.log('hello'),
+      onClick: () => {
+        setmodalMessage(`
+          Dalam menghadapi problema saya biasanya mencoba untuk berdiskusi 
+          dengan yang lain tentang keputusan yang paling optimal. Dalam berdiskusi,
+          tidak harus pendapat saya yang diambil dan segala kesalahan atau kegagalan yang terjadi saya tidak menaruh kesalahannya pada pembuat keputusan melainkan tanggung jawab team 
+          <br>
+          Pernah suatu saat saya berdiskusi dengan team saya tentang theme yang akan dipakai untuk membuat website evoting, pendapat saya waktu itu adalah glassmorphism, tetapi keputusan yang diambil waktu itu adalah bauhaus. Dalam hal ini saya memutuskan untuk tidak memaksakan kehendak dan membantu project ini sampai selesai
+          `);
+        isActive(true);
+      },
       style: {
         fontSize: '2.1rem',
       },
@@ -214,9 +238,26 @@ export default function Home() {
       tab: 'FAQ',
     },
     {
-      id: 17,
+      id: 18,
       label: 'Exit',
       onClick: () => back(),
+      tab: 'projects',
+    },
+    {
+      id: 19,
+      label: 'Exit',
+      onClick: () => back(),
+      tab: 'main',
+    },
+    {
+      id: 20,
+      label: !animation ? 'No Animation' : 'Enable Anim',
+      onClick: () => {
+        const URL = '?animation=false';
+        !animation
+          ? window.location.replace(window.location.href + URL)
+          : window.location.replace(window.location.href.substring(0, window.location.href.length - URL.length - 1));
+      },
       tab: 'main',
     },
   ];
@@ -233,14 +274,16 @@ export default function Home() {
     const handler = (e) => {
       if (e.keyCode !== 40) return;
       if (active) return;
+
       const nextID = navigate.find((val, idx) => {
         return val.tab === mode && idx > counter - 1;
       })?.id;
+
       nextID && setCounter(nextID);
     };
     document.body.addEventListener('keydown', handler);
     return () => document.body.removeEventListener('keydown', handler);
-  }, [counter]);
+  }, [counter, mode]);
 
   useEffect(() => {
     const handler = (e) => {
@@ -254,12 +297,13 @@ export default function Home() {
     };
     document.body.addEventListener('keydown', handler);
     return () => document.body.removeEventListener('keydown', handler);
-  }, [counter]);
+  }, [counter, mode]);
 
   useEffect(() => {
     const handler = (e) => {
       if (e.keyCode !== 13) return;
       if (show) {
+        setMode('main');
         clickedevent();
         return;
       }
@@ -267,7 +311,7 @@ export default function Home() {
     };
     document.body.addEventListener('keydown', handler);
     return () => document.body.removeEventListener('keydown', handler);
-  }, [counter, show]);
+  }, [counter, show, mode]);
 
   useEffect(() => {
     counter !== 3 ? SetPSA('Use Arrows and ESCP to navigate') : SetPSA('Warning High GPU usage because of the pure 3D css animation');
@@ -314,6 +358,7 @@ export default function Home() {
       setTimeout(() => {
         myVideo.current?.classList.remove('upped-video');
         clickedWrap.current?.classList.remove('upped');
+        console.log('hello');
         setMode('');
         setCounter(1);
       }, 900);
@@ -335,11 +380,16 @@ export default function Home() {
         <source src="/video.mp4" type="video/mp4" id="srca" />
       </video>
       <div className="vignette absolute w-screen h-screen"></div>
-      <svg className={`square ${!show && 'd-none'}`}>
+      <svg className={`square ${animation ? 'noanimation' : ''} ${!show && 'd-none'}`}>
         <polygon points="250,60 100,400 400,400" className="triangle" />
         Sorry, your browser does not support inline SVG.
       </svg>
-      <svg className={`text ${!show && 'd-none'}`} viewBox="0 0 629 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg
+        className={`text ${animation ? 'noanimation' : ''} ${!show && 'd-none'}`}
+        viewBox="0 0 629 68"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
         <path
           d="M67.104 68H54.336C54.08 68 53.824 67.808 53.568 67.424L47.424 52.256H21.312L15.264 67.424C15.072 67.808 14.816 68 14.496 68H1.63201C1.50401 68 1.40801 67.968 1.34401 67.904C0.960005 67.776 0.768005 67.52 0.768005 67.136L27.072 1.376C27.264 0.991997 27.552 0.799995 27.936 0.799995H40.8C41.184 0.799995 41.472 0.991997 41.664 1.376L67.872 66.848C67.936 66.912 67.968 67.008 67.968 67.136C67.968 67.392 67.872 67.616 67.68 67.808C67.552 67.936 67.36 68 67.104 68ZM65.856 66.272L40.224 2.528H28.512L2.88001 66.272H13.92L19.968 51.104C20.096 50.72 20.352 50.528 20.736 50.528C39.104 50.528 48.352 50.592 48.48 50.72C48.672 50.848 50.816 56.032 54.912 66.272H65.856ZM58.272 62.048C58.144 62.048 57.984 62.016 57.792 61.952C57.664 61.824 50.784 44.8 37.152 10.88H31.584L11.232 61.472C11.104 61.856 10.848 62.048 10.464 62.048C10.08 61.92 9.82401 61.792 9.69601 61.664C9.63201 61.472 9.60001 61.216 9.60001 60.896L30.144 9.632C30.336 9.312 30.624 9.152 31.008 9.152C35.616 9.152 37.984 9.216 38.112 9.344C38.304 9.408 45.344 26.688 59.232 61.184C59.232 61.312 59.136 61.472 58.944 61.664C58.816 61.856 58.592 61.984 58.272 62.048ZM43.2 40.352H25.536C25.408 40.352 25.312 40.32 25.248 40.256C24.864 40.128 24.672 39.872 24.672 39.488L33.6 17.216C33.728 16.832 33.984 16.64 34.368 16.64C34.752 16.64 35.008 16.832 35.136 17.216L44.064 39.2C44.064 39.968 43.776 40.352 43.2 40.352ZM41.952 38.624L34.368 19.808L26.784 38.624H41.952ZM45.6 46.304H23.136C22.88 46.304 22.656 46.24 22.464 46.112C22.336 45.92 22.272 45.696 22.272 45.44C22.272 45.184 22.336 44.992 22.464 44.864C22.656 44.672 22.88 44.576 23.136 44.576H45.6C45.856 44.576 46.048 44.672 46.176 44.864C46.368 44.992 46.464 45.184 46.464 45.44C46.464 45.696 46.368 45.92 46.176 46.112C46.048 46.24 45.856 46.304 45.6 46.304Z"
           fill="black"
@@ -377,7 +427,7 @@ export default function Home() {
           fill="black"
         />
       </svg>
-      <a className={`button ${!show && 'd-none'}`} onClick={clickedevent}>
+      <a className={`button ${animation ? 'noanimation' : ''} ${!show && 'd-none'}`} onClick={clickedevent}>
         Jump in
       </a>
       <div className="clicked-wrap absolute w-screen h-screen" ref={clickedWrap}>
