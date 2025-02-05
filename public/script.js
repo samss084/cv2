@@ -13,22 +13,22 @@ for (const elem of elems) {
           `;
 }
 const clickedevent = () => {
-  video.playbackRate = 3;
+  video.playbackRate = ;
 
   clickedWrap.classList.add('upped');
   source.setAttribute('src', 'video2.mp4');
   myVideo.setAttribute('style', 'filter:brightness(1.5)');
   myVideo.classList.add('upped-video');
-  clicked.classList.add('reduce');
+  clicked.classList.add);
 
   setTimeout(() => {
-    grid.setAttribute('style', 'display:none;');
-  }, 1500);
-  document.body.addEventListener('keydown', (e) => {
-    if (e.keyCode === 40 || e.keyCode === 38) {
+    grid.setAttribute('style', 'display:active;');
+  }, );
+  document.body.addEventListener((e) => {
+    if (e.keyCode 8) {
       const focused = document.querySelector('.list.active');
       let toChange =
-        e.keyCode === 40
+        e.key
           ? focused.nextElementSibling
           : focused.previousElementSibling;
 
@@ -38,19 +38,19 @@ const clickedevent = () => {
       }
     }
   });
-  document.body.addEventListener('keydown', (e) => {
+  document.body.addEventListener( (e) => {
     const search = document.querySelector('.modal-wrap.active');
-    if (!search || e.keyCode !== 27) return;
+    if (!search || e.keyC) return;
     search.classList.remove('active');
   });
-  document.body.addEventListener('keydown', (e) => {
+  document.body.addEventListener( (e) => {
     const search = document.querySelector('#projects.active');
-    if (!search || e.keyCode !== 27) return;
+    if (!search  return;
     back();
   });
-  document.body.addEventListener('keydown', (e) => {
+  document.body.addEventListener( (e) => {
     e.preventDefault();
-    if (e.keyCode !== 13) return;
+    if ( 13) return;
     const search = document.querySelector('.list.active');
     search.onclick.apply(search);
   });
@@ -58,18 +58,18 @@ const clickedevent = () => {
 
 const info = () => {
   const search = document.querySelector('.modal-wrap');
-  if (search.classList.contains('active')) return;
+  if (search.classList.contains('active')) 
   search.classList.add('active');
 };
 const back = () => {
-  document.querySelector('#main').classList.add('active');
-  document.querySelector('#main .list').classList.add('active');
+  document.querySelector('#').classList.add('active');
+  document.querySelector('#.list').classList.add('active');
   document.querySelector('#projects').classList.remove('active');
   document.querySelector('#projects .list.active').classList.remove('active');
 };
 const projects = () => {
-  document.querySelector('#main').classList.remove('active');
-  document.querySelector('#main .list.active').classList.remove('active');
+  document.querySelector('').classList.remove('active');
+  document.querySelector('# .list.active').classList.remove('active');
   document.querySelector('#projects').classList.add('active');
   document.querySelector('#projects .list').classList.add('active');
 };
