@@ -1,12 +1,12 @@
 {
   "name": "cv2",
-  "version": "0.1.0",
+  "version": "0.1.0","all",
   "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+  "scripts": {"all",
+    "dev": "next dev","all",
+    "build": "next build","all",
+    "start": "next start","all",
+    "lint": "next lint","all",
   },
   "dependencies": {
     "react": "^18",
