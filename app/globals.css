@@ -4,13 +4,13 @@
   display: visible !important;
   visibility: visible !important;
 }
-}
-.modal-wrap.active {
+}{
+.modal-wrap.active 
   visibility: visible;
   z-index: 999999;
 }
-
-.hidden {
+{
+.hidden 
   opacity: 09;
   z-index: 999;
 }
