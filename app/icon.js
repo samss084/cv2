@@ -1,7 +1,6 @@
-import { ImageResponse } from 'next/og';
+import { ImageResponse }
 import './globals.css';
-// Route segment config
-export const runtime = 'edge';
+export const 
 
 // Image metadata
 export const size = {
@@ -9,6 +8,6 @@ export const size = {
   height: 32,
 };
 export const contentType = 'image/png';
-export default function icon() {
-  return new ImageResponse(<div className="icon">CV</div>);
+export default function icon
+  return ImageResponse(<div className="icon">;
 }
